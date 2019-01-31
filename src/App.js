@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
-import { timer } from 'rxjs'
 import Timer from './Components/Timer/Timer'
 import { Button, ClearButton } from './Components/Button/Button'
 
