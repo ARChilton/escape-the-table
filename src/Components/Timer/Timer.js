@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Timer extends React.Component {
+class Timer extends React.PureComponent {
   static secondsToTime(secs) {
     const hours = Math.floor(secs / (60 * 60))
 
@@ -30,6 +30,7 @@ class Timer extends React.Component {
     this.startTimer = this.startTimer.bind(this)
     this.countDown = this.countDown.bind(this)
     this.runTimer = this.runTimer.bind(this)
+    this.loseOneMinute = this.loseOneMinute.bind(this)
   }
 
   componentDidMount() {
@@ -39,23 +40,22 @@ class Timer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(prevProps)
-    const { timerRun } = this.props
-    console.log(timerRun)
-    console.log(timerRun !== prevProps.timerRun)
+    const { timerRun, wrongAnswer } = this.props
     if (timerRun !== prevProps.timerRun) {
       this.runTimer(timerRun)
+    }
+    if (wrongAnswer && wrongAnswer !== prevProps.wrongAnswer) {
+      this.loseOneMinute()
     }
   }
 
   runTimer(isStart) {
-    console.log(`runTimer:${isStart}`)
     return isStart ? this.startTimer() : this.stopTimer()
   }
 
-  startTimer() {
+  startTimer(force) {
     const { seconds } = this.state
-    if (this.timer === 0 && seconds > 0) {
+    if ((this.timer === 0 && seconds > 0) || force) {
       this.timer = setInterval(this.countDown, 1000)
     }
   }
@@ -66,10 +66,17 @@ class Timer extends React.Component {
     localStorage.seconds = seconds
   }
 
-  countDown() {
+  loseOneMinute() {
+    this.stopTimer()
+    this.countDown(60)
+
+    this.startTimer(true)
+  }
+
+  countDown(secsToRemove = 1) {
     const { seconds: secs } = this.state
     // Remove one second, set state so a re-render happens.
-    const seconds = secs - 1
+    const seconds = secs - secsToRemove
     this.setState({
       time: Timer.secondsToTime(seconds),
       seconds,
@@ -92,11 +99,17 @@ class Timer extends React.Component {
   }
 }
 
-Timer.propTypes = { seconds: PropTypes.number, timerRun: PropTypes.bool }
+Timer.propTypes = {
+  seconds: PropTypes.number,
+  timerRun: PropTypes.bool,
+  wrongAnswer: PropTypes.bool,
+  releaseHint: PropTypes.func.isRequired,
+}
 
 Timer.defaultProps = {
   seconds: 3600,
   timerRun: false,
+  wrongAnswer: false,
 }
 
 export default Timer
