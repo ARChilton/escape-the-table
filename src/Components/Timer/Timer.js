@@ -75,13 +75,28 @@ class Timer extends React.PureComponent {
 
   countDown(secsToRemove = 1) {
     const { seconds: secs } = this.state
+    const { hint, releaseHint } = this.props
     // Remove one second, set state so a re-render happens.
     const seconds = secs - secsToRemove
+    const time = Timer.secondsToTime(seconds)
     this.setState({
-      time: Timer.secondsToTime(seconds),
+      time,
       seconds,
     })
 
+    switch (time.m) {
+      case 54:
+        return hint < 1 && releaseHint(1)
+      case 49:
+        return hint < 2 && releaseHint(2)
+      case 44:
+        return hint < 3 && releaseHint(3)
+      case 39:
+        return hint < 4 && releaseHint(4)
+      case 34:
+        return hint < 5 && releaseHint(5)
+      default:
+    }
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer)

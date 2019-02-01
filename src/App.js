@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Timer from './Components/Timer/Timer'
 import { Button, ClearButton } from './Components/Button/Button'
+import Hints from './Components/Hints/Hints'
 
 const P1Answer = JSON.stringify([1, 2, 3, 4])
 
@@ -9,8 +10,14 @@ const AppGrid = styled.div`
   display: grid;
   align-items: center;
   grid-gap: 25px;
+  grid-template-columns: 2fr 1fr;
+  height: 100vh;
 `
-
+const Grid = styled('div')`
+  display: grid;
+  align-items: center;
+  grid-gap: 25px;
+`
 const TimerContainer = styled.div`
   color: red;
   font-size: 54px;
@@ -24,8 +31,12 @@ const updateCombo = (
   part,
   changeCombo,
   toggleWrongAnswer,
-  changePart
+  changePart,
+  reset
 ) => {
+  if (reset) {
+    return changeCombo([])
+  }
   const newCombo = [...currentCombo, key]
   console.log(newCombo)
   if (newCombo.length < 4) {
@@ -39,7 +50,7 @@ const updateCombo = (
       if (newComboString === P1Answer) {
         changePart(2)
       } else {
-        toggleWrongAnswer(true)
+        return toggleWrongAnswer(true)
       }
     }
   }
@@ -54,36 +65,42 @@ const App = () => {
 
   return (
     <AppGrid>
-      <TimerContainer>
-        <Timer
-          seconds={3600}
-          timerRun={timerRun}
-          wrongAnswer={wrongAnswer}
-          releaseHint={releaseHint}
-        />
-      </TimerContainer>
-      <Button onClick={() => toggleTimerRun(!timerRun)}>
-        {timerRun ? 'Pause' : 'Start'}
-      </Button>
-      {[1, 2, 3, 4, 5, 6].map(keyNumber => (
-        <ClearButton
-          key={keyNumber}
-          onClick={() =>
-            updateCombo(
-              keyNumber,
-              combination,
-              part,
-              updateCombination,
-              toggleWrongAnswer,
-              changePart
-            )
-          }
-        >
-          key {keyNumber}
-        </ClearButton>
-      ))}
+      <Grid>
+        <TimerContainer>
+          <Timer
+            seconds={3600}
+            timerRun={timerRun}
+            wrongAnswer={wrongAnswer}
+            releaseHint={releaseHint}
+            hint={hintToShow}
+          />
+        </TimerContainer>
+        <Button onClick={() => toggleTimerRun(!timerRun)}>
+          {timerRun ? 'Pause' : 'Start'}
+        </Button>
+        {[1, 2, 3, 4, 5, 6].map(keyNumber => (
+          <ClearButton
+            key={keyNumber}
+            onClick={() =>
+              updateCombo(
+                keyNumber,
+                combination,
+                part,
+                updateCombination,
+                toggleWrongAnswer,
+                changePart
+              )
+            }
+          >
+            key {keyNumber}
+          </ClearButton>
+        ))}
 
-      {console.log(combination)}
+        {console.log(combination)}
+      </Grid>
+      <div>
+        <Hints hintNumber={hintToShow} />
+      </div>
     </AppGrid>
   )
 }
