@@ -16,7 +16,7 @@ const HintCard = styled('div')`
 `
 
 const Warning = styled('div')`
-  color: red;
+  color: ${props => props.theme.color.danger};
 `
 
 const Hint = ({ hintNumber, hintText, answer, part }) => {
@@ -42,11 +42,15 @@ const Hint = ({ hintNumber, hintText, answer, part }) => {
 Hint.propTypes = {
   hintNumber: PropTypes.number,
   hintText: PropTypes.string,
+  answer: PropTypes.bool,
+  part: PropTypes.number,
 }
 
 Hint.defaultProps = {
   hintNumber: null,
   hintText: null,
+  answer: null,
+  part: 1,
 }
 
 export default Hint

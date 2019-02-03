@@ -8,7 +8,10 @@ const updateCombo = (
   part,
   changeCombo,
   toggleWrongAnswer,
-  changePart
+  changePart,
+  updateCongrats,
+  toggleTimer,
+  toggleEndGame
 ) => {
   if (currentCombo.length === 4) {
     return changeCombo([key])
@@ -31,6 +34,9 @@ const updateCombo = (
     if (part === 1) {
       if (newComboString === P1Answer) {
         changePart(2)
+        changeCombo([])
+        updateCongrats('Correct, now open part 2')
+        setTimeout(() => updateCongrats(null), 3000)
       } else {
         return toggleWrongAnswer(true)
       }
@@ -38,6 +44,9 @@ const updateCombo = (
     if (part === 2) {
       if (newComboString === P2Answer) {
         changePart(3)
+        changeCombo([])
+        updateCongrats('Correct, now open part 3')
+        setTimeout(() => updateCongrats(null), 3000)
       } else {
         return toggleWrongAnswer(true)
       }
@@ -45,6 +54,9 @@ const updateCombo = (
     if (part === 3) {
       if (newComboString === P3Answer) {
         changePart(4)
+        toggleTimer(false)
+        updateCongrats('Well Done you have escaped!')
+        toggleEndGame(true)
       } else {
         return toggleWrongAnswer(true)
       }

@@ -63,9 +63,11 @@ class Timer extends React.PureComponent {
 
   stopTimer() {
     const { seconds } = this.state
+    const { updateEndTime } = this.props
     clearInterval(this.timer)
     this.timer = 0
     localStorage.seconds = seconds
+    updateEndTime(seconds)
   }
 
   loseOneMinute() {
