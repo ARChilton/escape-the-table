@@ -3,6 +3,8 @@ import styled from '@emotion/styled'
 import Timer from './Components/Timer/Timer'
 import { Button, ClearButton } from './Components/Button/Button'
 import Hints from './Components/Hints/Hints'
+import Answers from './Components/Answers/Answers'
+import imgRegister from './img/imgRegister'
 
 const P1Answer = JSON.stringify([1, 2, 3, 4])
 
@@ -69,7 +71,7 @@ const App = () => {
         <Grid>
           <TimerContainer>
             <Timer
-              seconds={100}
+              seconds={3600}
               timerRun={timerRun}
               wrongAnswer={wrongAnswer}
               releaseHint={releaseHint}
@@ -80,25 +82,29 @@ const App = () => {
           <Button onClick={() => toggleTimerRun(!timerRun)}>
             {timerRun ? 'Pause' : 'Start'}
           </Button>
-          {[1, 2, 3, 4, 5, 6].map(keyNumber => (
-            <ClearButton
-              key={keyNumber}
-              onClick={() =>
-                updateCombo(
-                  keyNumber,
-                  combination,
-                  part,
-                  updateCombination,
-                  toggleWrongAnswer,
-                  changePart
-                )
-              }
-            >
-              key {keyNumber}
-            </ClearButton>
-          ))}
-
-          {console.log(combination)}
+          <Answers combo={combination} />
+          {timerRun &&
+            [1, 2, 3, 4, 5, 6].map(keyNumber => (
+              <ClearButton
+                key={keyNumber}
+                onClick={() =>
+                  updateCombo(
+                    keyNumber,
+                    combination,
+                    part,
+                    updateCombination,
+                    toggleWrongAnswer,
+                    changePart
+                  )
+                }
+              >
+                <div>key {keyNumber}</div>
+                <img
+                  src={imgRegister[`key${keyNumber}`]}
+                  alt={`key ${keyNumber}`}
+                />
+              </ClearButton>
+            ))}
         </Grid>
       ) : (
         <Grid>Game Over</Grid>

@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
+import hints from '../../data/hints'
+import Hint from '../Hint/Hint'
 
 const HintContainer = styled('div')`
   /* overflow: scroll; */
@@ -11,10 +13,11 @@ const HintContainer = styled('div')`
 const Hints = ({ hintNumber }) => (
   <HintContainer>
     {hintNumber > 0 ? (
-      <React.Fragment>
-        <div>Hint 1</div>
-        {hintNumber > 1 && <div>Hint 2</div>}
-      </React.Fragment>
+      hints.map((hint, i) =>
+        hintNumber > i ? (
+          <Hint key={hint} hintNumber={i + 1} hintText={hint} />
+        ) : null
+      )
     ) : (
       <div>Your first hint will be shown after 5 minutes</div>
     )}

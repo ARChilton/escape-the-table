@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import buzzer from '../../audio/buzzer.mp3'
 
 class Timer extends React.PureComponent {
   static secondsToTime(secs) {
@@ -96,26 +97,17 @@ class Timer extends React.PureComponent {
     if (hint < 4 && min < 40) {
       releaseHint(4)
     }
-    if (hint < 5 && min < 35) {
+    if (hint < 5 && min < 30) {
       releaseHint(5)
     }
-    if (hint < 6 && min < 30) {
+    if (hint < 6 && min < 20) {
       releaseHint(6)
     }
-    if (hint < 7 && min < 25) {
+    if (hint < 7 && min < 10) {
       releaseHint(7)
     }
-    if (hint < 8 && min < 20) {
+    if (hint < 8 && min < 5) {
       releaseHint(8)
-    }
-    if (hint < 9 && min < 15) {
-      releaseHint(9)
-    }
-    if (hint < 10 && min < 10) {
-      releaseHint(10)
-    }
-    if (hint < 11 && min < 5) {
-      releaseHint(11)
     }
     // Check if we're at zero.
     if (seconds < 1) {
@@ -125,11 +117,14 @@ class Timer extends React.PureComponent {
   }
 
   render() {
+    const { wrongAnswer } = this.props
     const { time } = this.state
     const { m: mins, s: secs } = time
+    console.log(this.props)
     return (
       <div>
         {mins > 9 ? mins : `0${mins}`}:{secs > 9 ? secs : `0${secs}`}
+        {wrongAnswer && <audio src={buzzer} autoPlay />}
       </div>
     )
   }
