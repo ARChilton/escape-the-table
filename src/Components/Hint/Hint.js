@@ -9,6 +9,10 @@ const HintCard = styled('div')`
   padding: 10px;
   margin-top: 10px;
   text-align: center;
+  background-color: #fff;
+  border-radius: 3px;
+  display: grid;
+  grid-gap: 5px;
 `
 
 const Hint = ({ hintNumber, hintText }) => {
@@ -21,7 +25,10 @@ const Hint = ({ hintNumber, hintText }) => {
       <audio src={audio} autoPlay />
     </HintCard>
   ) : (
-    <HintCard>{hintText}</HintCard>
+    <HintCard>
+      <div>Hint {hintNumber}</div>
+      <div>{hintText}</div>
+    </HintCard>
   )
 }
 

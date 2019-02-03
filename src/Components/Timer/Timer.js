@@ -64,6 +64,7 @@ class Timer extends React.PureComponent {
   stopTimer() {
     const { seconds } = this.state
     clearInterval(this.timer)
+    this.timer = 0
     localStorage.seconds = seconds
   }
 
@@ -120,7 +121,6 @@ class Timer extends React.PureComponent {
     const { wrongAnswer } = this.props
     const { time } = this.state
     const { m: mins, s: secs } = time
-    console.log(this.props)
     return (
       <div>
         {mins > 9 ? mins : `0${mins}`}:{secs > 9 ? secs : `0${secs}`}

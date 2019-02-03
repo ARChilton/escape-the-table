@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import styled from '@emotion/styled'
 import Timer from './Components/Timer/Timer'
-import { Button, ClearButton } from './Components/Button/Button'
+import { Button } from './Components/Button/Button'
 import Hints from './Components/Hints/Hints'
 import Answers from './Components/Answers/Answers'
-import imgRegister from './img/imgRegister'
-
-const P1Answer = JSON.stringify([1, 2, 3, 4])
+import updateCombo from './updateCombo'
+import KeyList from './Components/KeyList/KeyList'
+import Key from './Components/Key/Key'
 
 const AppGrid = styled.div`
   display: grid;
-  align-items: center;
+  align-items: start;
+  justify-content: center;
   grid-gap: 25px;
   grid-template-columns: 2fr 1fr;
   height: 100vh;
@@ -22,41 +23,17 @@ const Grid = styled('div')`
 `
 const TimerContainer = styled.div`
   color: red;
-  font-size: 54px;
+  font-size: 80px;
   text-align: center;
   font-family: digital;
+  display: grid;
+  grid-auto-flow: column;
+  grid-gap: 25px;
+  justify-items: center;
+  align-items: center;
+  margin: auto;
+  padding-top: 10px;
 `
-
-const updateCombo = (
-  key,
-  currentCombo,
-  part,
-  changeCombo,
-  toggleWrongAnswer,
-  changePart,
-  reset
-) => {
-  if (reset) {
-    return changeCombo([])
-  }
-  const newCombo = [...currentCombo, key]
-  console.log(newCombo)
-  if (newCombo.length < 4) {
-    toggleWrongAnswer(false)
-    return changeCombo(newCombo)
-  }
-  if (newCombo.length === 4) {
-    const newComboString = JSON.stringify(newCombo)
-    changeCombo(newCombo)
-    if (part === 1) {
-      if (newComboString === P1Answer) {
-        changePart(2)
-      } else {
-        return toggleWrongAnswer(true)
-      }
-    }
-  }
-}
 
 const App = () => {
   const [timerRun, toggleTimerRun] = useState(false)
@@ -65,6 +42,7 @@ const App = () => {
   const [part, changePart] = useState(1)
   const [hintToShow, releaseHint] = useState(0)
   const [endGame, toggleEndGame] = useState(false)
+
   return (
     <AppGrid>
       {!endGame ? (
@@ -78,33 +56,40 @@ const App = () => {
               hint={hintToShow}
               toggleEndGame={toggleEndGame}
             />
+            <div>
+              <Button onClick={() => toggleTimerRun(!timerRun)}>
+                {timerRun ? 'Pause' : 'Start'}
+              </Button>
+            </div>
           </TimerContainer>
-          <Button onClick={() => toggleTimerRun(!timerRun)}>
-            {timerRun ? 'Pause' : 'Start'}
-          </Button>
-          <Answers combo={combination} />
-          {timerRun &&
-            [1, 2, 3, 4, 5, 6].map(keyNumber => (
-              <ClearButton
-                key={keyNumber}
-                onClick={() =>
-                  updateCombo(
-                    keyNumber,
-                    combination,
-                    part,
-                    updateCombination,
-                    toggleWrongAnswer,
-                    changePart
-                  )
-                }
-              >
-                <div>key {keyNumber}</div>
-                <img
-                  src={imgRegister[`key${keyNumber}`]}
-                  alt={`key ${keyNumber}`}
-                />
-              </ClearButton>
-            ))}
+          {timerRun && (
+            <React.Fragment>
+              <Answers
+                combo={combination}
+                updateCombo={updateCombination}
+                toggleWrongAnswer={toggleWrongAnswer}
+              />
+
+              <KeyList>
+                {[1, 2, 3, 4, 5, 6].map(keyNumber => (
+                  <Key
+                    key={keyNumber}
+                    keyNumber={keyNumber}
+                    onClick={() =>
+                      updateCombo(
+                        keyNumber,
+                        combination,
+                        part,
+                        updateCombination,
+                        toggleWrongAnswer,
+                        changePart
+                      )
+                    }
+                  />
+                ))}
+              </KeyList>
+            </React.Fragment>
+          )}
         </Grid>
       ) : (
         <Grid>Game Over</Grid>

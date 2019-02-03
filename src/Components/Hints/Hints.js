@@ -8,6 +8,10 @@ const HintContainer = styled('div')`
   /* overflow: scroll; */
   height: 100%;
   padding: 10px;
+  text-align: center;
+  border-left: 3px solid green;
+  background-color: lightgreen;
+  height: 100vh;
 `
 
 const Hints = ({ hintNumber }) => (
