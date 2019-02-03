@@ -62,42 +62,47 @@ const App = () => {
   const [wrongAnswer, toggleWrongAnswer] = useState(false)
   const [part, changePart] = useState(1)
   const [hintToShow, releaseHint] = useState(0)
-
+  const [endGame, toggleEndGame] = useState(false)
   return (
     <AppGrid>
-      <Grid>
-        <TimerContainer>
-          <Timer
-            seconds={3600}
-            timerRun={timerRun}
-            wrongAnswer={wrongAnswer}
-            releaseHint={releaseHint}
-            hint={hintToShow}
-          />
-        </TimerContainer>
-        <Button onClick={() => toggleTimerRun(!timerRun)}>
-          {timerRun ? 'Pause' : 'Start'}
-        </Button>
-        {[1, 2, 3, 4, 5, 6].map(keyNumber => (
-          <ClearButton
-            key={keyNumber}
-            onClick={() =>
-              updateCombo(
-                keyNumber,
-                combination,
-                part,
-                updateCombination,
-                toggleWrongAnswer,
-                changePart
-              )
-            }
-          >
-            key {keyNumber}
-          </ClearButton>
-        ))}
+      {!endGame ? (
+        <Grid>
+          <TimerContainer>
+            <Timer
+              seconds={100}
+              timerRun={timerRun}
+              wrongAnswer={wrongAnswer}
+              releaseHint={releaseHint}
+              hint={hintToShow}
+              toggleEndGame={toggleEndGame}
+            />
+          </TimerContainer>
+          <Button onClick={() => toggleTimerRun(!timerRun)}>
+            {timerRun ? 'Pause' : 'Start'}
+          </Button>
+          {[1, 2, 3, 4, 5, 6].map(keyNumber => (
+            <ClearButton
+              key={keyNumber}
+              onClick={() =>
+                updateCombo(
+                  keyNumber,
+                  combination,
+                  part,
+                  updateCombination,
+                  toggleWrongAnswer,
+                  changePart
+                )
+              }
+            >
+              key {keyNumber}
+            </ClearButton>
+          ))}
 
-        {console.log(combination)}
-      </Grid>
+          {console.log(combination)}
+        </Grid>
+      ) : (
+        <Grid>Game Over</Grid>
+      )}
       <div>
         <Hints hintNumber={hintToShow} />
       </div>
