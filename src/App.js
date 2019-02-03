@@ -21,11 +21,7 @@ const Grid = styled('div')`
   align-items: center;
   grid-gap: 25px;
 `
-const TimerContainer = styled.div`
-  color: red;
-  font-size: 80px;
-  text-align: center;
-  font-family: digital;
+const TopContainer = styled.div`
   display: grid;
   grid-auto-flow: column;
   grid-gap: 25px;
@@ -33,6 +29,17 @@ const TimerContainer = styled.div`
   align-items: center;
   margin: auto;
   padding-top: 10px;
+`
+
+const TimerContainer = styled('div')`
+  color: red;
+  font-size: 80px;
+  text-align: center;
+  font-family: digital;
+`
+
+const Part = styled('div')`
+  font-family: monospace;
 `
 
 const App = () => {
@@ -47,21 +54,27 @@ const App = () => {
     <AppGrid>
       {!endGame ? (
         <Grid>
-          <TimerContainer>
-            <Timer
-              seconds={3600}
-              timerRun={timerRun}
-              wrongAnswer={wrongAnswer}
-              releaseHint={releaseHint}
-              hint={hintToShow}
-              toggleEndGame={toggleEndGame}
-            />
+          <TopContainer>
+            <Part>
+              <div>Part {part}</div>
+            </Part>
+            <TimerContainer>
+              <Timer
+                seconds={3600}
+                timerRun={timerRun}
+                wrongAnswer={wrongAnswer}
+                releaseHint={releaseHint}
+                hint={hintToShow}
+                toggleEndGame={toggleEndGame}
+              />
+            </TimerContainer>
+
             <div>
               <Button onClick={() => toggleTimerRun(!timerRun)}>
                 {timerRun ? 'Pause' : 'Start'}
               </Button>
             </div>
-          </TimerContainer>
+          </TopContainer>
           {timerRun && (
             <React.Fragment>
               <Answers
@@ -69,7 +82,7 @@ const App = () => {
                 updateCombo={updateCombination}
                 toggleWrongAnswer={toggleWrongAnswer}
               />
-
+              <div style={{ textAlign: 'center' }}>Keys</div>
               <KeyList>
                 {[1, 2, 3, 4, 5, 6].map(keyNumber => (
                   <Key
@@ -94,9 +107,8 @@ const App = () => {
       ) : (
         <Grid>Game Over</Grid>
       )}
-      <div>
-        <Hints hintNumber={hintToShow} />
-      </div>
+
+      <Hints hintNumber={hintToShow} />
     </AppGrid>
   )
 }

@@ -49,6 +49,7 @@ const Answers = ({ combo, updateCombo, toggleWrongAnswer }) => (
 Answers.propTypes = {
   combo: PropTypes.arrayOf(PropTypes.number),
   updateCombo: PropTypes.func.isRequired,
+  toggleWrongAnswer: PropTypes.func.isRequired,
 }
 
 Answers.defaultProps = {

@@ -8,11 +8,10 @@ const updateCombo = (
   part,
   changeCombo,
   toggleWrongAnswer,
-  changePart,
-  reset
+  changePart
 ) => {
-  if (reset) {
-    return changeCombo([])
+  if (currentCombo.length === 4) {
+    return changeCombo([key])
   }
   const index = currentCombo.indexOf(null)
   let newCombo = currentCombo

@@ -15,18 +15,25 @@ const HintCard = styled('div')`
   grid-gap: 5px;
 `
 
-const Hint = ({ hintNumber, hintText }) => {
+const Warning = styled('div')`
+  color: red;
+`
+
+const Hint = ({ hintNumber, hintText, answer, part }) => {
   const [flipped, toggleFlip] = useState(false)
 
   return !flipped ? (
     <HintCard onClick={() => toggleFlip(true)}>
       <div>Hint {hintNumber}</div>
       <small>click to flip</small>
+      {answer && <Warning>Answer to part {part}</Warning>}
       <audio src={audio} autoPlay />
     </HintCard>
   ) : (
     <HintCard>
       <div>Hint {hintNumber}</div>
+      {answer && <Warning>Answer to part {part}</Warning>}
+
       <div>{hintText}</div>
     </HintCard>
   )

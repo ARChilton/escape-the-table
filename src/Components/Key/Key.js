@@ -13,10 +13,10 @@ const KeyImg = styled('img')`
   max-width: 100px;
 `
 
-const Key = ({ keyNumber, onClick }) => (
-  <ClearButton key={keyNumber} onClick={onClick}>
+const Key = ({ keyNumber, ...otherProps }) => (
+  <ClearButton key={keyNumber} {...otherProps}>
     <Grid>
-      <div>key {keyNumber}</div>
+      {/* <div>key {keyNumber}</div> */}
       <KeyImg src={imgRegister[`key${keyNumber}`]} alt={`key ${keyNumber}`} />
     </Grid>
   </ClearButton>
@@ -24,11 +24,6 @@ const Key = ({ keyNumber, onClick }) => (
 
 Key.propTypes = {
   keyNumber: PropTypes.number.isRequired,
-  onClick: PropTypes.func,
-}
-
-Key.defaultProps = {
-  onClick: null,
 }
 
 export default React.memo(Key)

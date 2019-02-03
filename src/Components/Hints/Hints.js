@@ -11,17 +11,25 @@ const HintContainer = styled('div')`
   text-align: center;
   border-left: 3px solid green;
   background-color: lightgreen;
-  height: 100vh;
+  height: 100%;
 `
 
 const Hints = ({ hintNumber }) => (
   <HintContainer>
     {hintNumber > 0 ? (
-      hints.map((hint, i) =>
-        hintNumber > i ? (
-          <Hint key={hint} hintNumber={i + 1} hintText={hint} />
+      hints.map((hint, i) => {
+        const { id, text, answer, part } = hint
+
+        return hintNumber > i ? (
+          <Hint
+            key={id}
+            hintNumber={i + 1}
+            hintText={text}
+            answer={answer}
+            part={part}
+          />
         ) : null
-      )
+      })
     ) : (
       <div>Your first hint will be shown after 5 minutes</div>
     )}
