@@ -75,7 +75,7 @@ class Timer extends React.PureComponent {
 
   countDown(secsToRemove = 1) {
     const { seconds: secs } = this.state
-    const { hint, releaseHint } = this.props
+    const { hint, releaseHint, toggleEndGame } = this.props
     // Remove one second, set state so a re-render happens.
     const seconds = secs - secsToRemove
     const time = Timer.secondsToTime(seconds)
@@ -83,23 +83,44 @@ class Timer extends React.PureComponent {
       time,
       seconds,
     })
-
-    switch (time.m) {
-      case 54:
-        return hint < 1 && releaseHint(1)
-      case 49:
-        return hint < 2 && releaseHint(2)
-      case 44:
-        return hint < 3 && releaseHint(3)
-      case 39:
-        return hint < 4 && releaseHint(4)
-      case 34:
-        return hint < 5 && releaseHint(5)
-      default:
+    const { m: min } = time
+    if (hint < 1 && min < 55) {
+      releaseHint(1)
+    }
+    if (hint < 2 && min < 50) {
+      releaseHint(2)
+    }
+    if (hint < 3 && min < 45) {
+      releaseHint(3)
+    }
+    if (hint < 4 && min < 40) {
+      releaseHint(4)
+    }
+    if (hint < 5 && min < 35) {
+      releaseHint(5)
+    }
+    if (hint < 6 && min < 30) {
+      releaseHint(6)
+    }
+    if (hint < 7 && min < 25) {
+      releaseHint(7)
+    }
+    if (hint < 8 && min < 20) {
+      releaseHint(8)
+    }
+    if (hint < 9 && min < 15) {
+      releaseHint(9)
+    }
+    if (hint < 10 && min < 10) {
+      releaseHint(10)
+    }
+    if (hint < 11 && min < 5) {
+      releaseHint(11)
     }
     // Check if we're at zero.
-    if (seconds === 0) {
+    if (seconds < 1) {
       clearInterval(this.timer)
+      toggleEndGame(true)
     }
   }
 
@@ -119,12 +140,14 @@ Timer.propTypes = {
   timerRun: PropTypes.bool,
   wrongAnswer: PropTypes.bool,
   releaseHint: PropTypes.func.isRequired,
+  hint: PropTypes.number,
 }
 
 Timer.defaultProps = {
   seconds: 3600,
   timerRun: false,
   wrongAnswer: false,
+  hint: 0,
 }
 
 export default Timer
