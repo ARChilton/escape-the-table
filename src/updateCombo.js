@@ -23,7 +23,6 @@ const updateCombo = (
   } else {
     newCombo = [...currentCombo, key]
   }
-  console.log(newCombo)
   if (newCombo.length < 4) {
     toggleWrongAnswer(false)
     return changeCombo(newCombo)
