@@ -61,6 +61,7 @@ const updateCombo = (
       }
     }
   }
+  return false
 }
 
 export default updateCombo
