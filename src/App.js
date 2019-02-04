@@ -15,7 +15,9 @@ const AppGrid = styled.div`
   justify-content: center;
   grid-gap: 25px;
   grid-template-columns: 2fr 1fr;
+  grid-template-rows: auto;
   height: 100vh;
+  grid-template-areas: '. hints' '. hints';
 `
 const Grid = styled('div')`
   display: grid;

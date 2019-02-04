@@ -13,14 +13,14 @@ const updateCombo = (
   toggleTimer,
   toggleEndGame
 ) => {
-  if (currentCombo.length === 4) {
-    return changeCombo([key])
-  }
   const index = currentCombo.indexOf(null)
   let newCombo = currentCombo
   if (index > -1) {
     newCombo[index] = key
   } else {
+    if (currentCombo.length === 4) {
+      return changeCombo([key])
+    }
     newCombo = [...currentCombo, key]
   }
   if (newCombo.length < 4) {

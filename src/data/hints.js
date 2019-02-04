@@ -1,3 +1,5 @@
+import imgRegister from '../img/imgRegister'
+
 export default [
   {
     id: 1,
@@ -16,7 +18,8 @@ export default [
   {
     id: 4,
     part: 2,
-    text: `PUT THE KEY DOWN ON THE PRISON FLOOR, ALL THE PAPERS WITH X Y COORDINATES GIVE INFO ON THE FORMULA.FIND THESE SHAPES IN THE CELL: { SHAPES } FIND { ALPHA SIGN } ON A PICTURE.COUNT DAYS TO SOLVE THE FORMULA.`,
+    text: `PUT THE KEY DOWN ON THE PRISON FLOOR, ALL THE PAPERS WITH X Y COORDINATES GIVE INFO ON THE FORMULA.FIND THESE SHAPES IN THE CELL: { SHAPES (SEE PICTURE BELOW) } FIND { ALPHA SIGN (SEE PICTURE) } ON A PICTURE.COUNT DAYS TO SOLVE THE FORMULA.`,
+    img: imgRegister.hint4,
   },
   {
     id: 5,
@@ -32,10 +35,10 @@ export default [
     id: 7,
     answer: true,
     part: 3,
-    text: `ANSWER CORRECT CODE: 40 44 43 42 { SEE PICTURE }`,
+    img: imgRegister.hint7,
   },
   {
     id: 8,
-    text: `USE THE LETTERS ON THE KEYS.FINAL CODE: 1 NEWSPAPER, 2 WASHING LIQUID, 3 CHALK BOARD, 4 SHIRT]`,
+    text: `USE THE LETTERS ON THE KEYS.FINAL CODE: 1 NEWSPAPER, 2 WASHING LIQUID, 3 CHALK BOARD, 4 SHIRT.`,
   },
 ]

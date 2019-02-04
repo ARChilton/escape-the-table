@@ -5,6 +5,7 @@ import audio from '../../audio/hint.mp3'
 
 const HintCard = styled('div')`
   border: 1px solid black;
+  margin: auto;
   min-height: 50px;
   padding: 10px;
   margin-top: 10px;
@@ -13,13 +14,17 @@ const HintCard = styled('div')`
   border-radius: 3px;
   display: grid;
   grid-gap: 5px;
+  margin-bottom: 5px;
+`
+const Img = styled('img')`
+  max-width: 100%;
 `
 
 const Warning = styled('div')`
   color: ${props => props.theme.color.danger};
 `
 
-const Hint = ({ hintNumber, hintText, answer, part }) => {
+const Hint = ({ hintNumber, text, answer, part, img }) => {
   const [flipped, toggleFlip] = useState(false)
 
   return !flipped ? (
@@ -34,23 +39,26 @@ const Hint = ({ hintNumber, hintText, answer, part }) => {
       <div>Hint {hintNumber}</div>
       {answer && <Warning>Answer to part {part}</Warning>}
 
-      <div>{hintText}</div>
+      {text && <div>{text}</div>}
+      {img && <Img src={img} alt="hint" />}
     </HintCard>
   )
 }
 
 Hint.propTypes = {
   hintNumber: PropTypes.number,
-  hintText: PropTypes.string,
+  text: PropTypes.string,
   answer: PropTypes.bool,
   part: PropTypes.number,
+  img: PropTypes.string,
 }
 
 Hint.defaultProps = {
   hintNumber: null,
-  hintText: null,
+  text: null,
   answer: null,
   part: 1,
+  img: null,
 }
 
 export default Hint

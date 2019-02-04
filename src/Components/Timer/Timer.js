@@ -66,7 +66,6 @@ class Timer extends React.PureComponent {
     const { updateEndTime } = this.props
     clearInterval(this.timer)
     this.timer = 0
-    localStorage.seconds = seconds
     updateEndTime(seconds)
   }
 
