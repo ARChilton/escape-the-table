@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import buzzer from '../../audio/buzzer.mp3'
 
+const Buzzer = () => <audio src={buzzer} autoPlay />
 class Timer extends React.PureComponent {
   static secondsToTime(secs) {
     const hours = Math.floor(secs / (60 * 60))
@@ -125,7 +126,7 @@ class Timer extends React.PureComponent {
     return (
       <div>
         {mins > 9 ? mins : `0${mins}`}:{secs > 9 ? secs : `0${secs}`}
-        {wrongAnswer && <audio src={buzzer} autoPlay />}
+        {wrongAnswer && <Buzzer />}
       </div>
     )
   }

@@ -55,6 +55,8 @@ const Congrats = styled('div')`
   align-self: center;
 `
 
+const CongratsAudio = () => <audio src={congratsAudio} autoPlay />
+
 const App = () => {
   const [timerRun, toggleTimerRun] = useState(false)
   const [combination, updateCombination] = useState([])
@@ -102,7 +104,7 @@ const App = () => {
             ) : (
               <React.Fragment>
                 <Congrats>{congrats}</Congrats>
-                <audio src={congratsAudio} autoPlay />
+                <CongratsAudio />{' '}
               </React.Fragment>
             )}
 
@@ -139,7 +141,7 @@ const App = () => {
       {congrats ? (
         <React.Fragment>
           <Congrats>{congrats}</Congrats>
-          <audio src={congratsAudio} />
+          <CongratsAudio />
         </React.Fragment>
       ) : (
         <div>Game Over</div>

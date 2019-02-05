@@ -24,6 +24,8 @@ const Warning = styled('div')`
   color: ${props => props.theme.color.danger};
 `
 
+const HintAudio = () => <audio src={audio} autoPlay />
+
 const Hint = ({ hintNumber, text, answer, part, img }) => {
   const [flipped, toggleFlip] = useState(false)
 
@@ -32,7 +34,7 @@ const Hint = ({ hintNumber, text, answer, part, img }) => {
       <div>Hint {hintNumber}</div>
       <small>click to flip</small>
       {answer && <Warning>Answer to part {part}</Warning>}
-      <audio src={audio} autoPlay />
+      <HintAudio />
     </HintCard>
   ) : (
     <HintCard>
