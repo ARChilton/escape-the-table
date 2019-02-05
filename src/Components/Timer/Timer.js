@@ -23,10 +23,10 @@ class Timer extends React.PureComponent {
 
   constructor(props) {
     super(props)
-    let { seconds } = this.props
-    if (localStorage.seconds) {
-      seconds = +localStorage.seconds
-    }
+    const { seconds } = this.props
+    // if (localStorage.seconds) {
+    //   seconds = +localStorage.seconds
+    // }
     this.state = { time: {}, seconds }
     this.timer = 0
     this.startTimer = this.startTimer.bind(this)
@@ -51,6 +51,12 @@ class Timer extends React.PureComponent {
     }
   }
 
+  componentWillUnmount() {
+    const { updateEndTime } = this.props
+    const { seconds } = this.state
+    updateEndTime(seconds)
+  }
+
   runTimer(isStart) {
     return isStart ? this.startTimer() : this.stopTimer()
   }
@@ -63,11 +69,8 @@ class Timer extends React.PureComponent {
   }
 
   stopTimer() {
-    const { seconds } = this.state
-    const { updateEndTime } = this.props
     clearInterval(this.timer)
     this.timer = 0
-    updateEndTime(seconds)
   }
 
   loseOneMinute() {
