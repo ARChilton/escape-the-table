@@ -75,7 +75,6 @@ const App = () => {
   const [endGame, toggleEndGame] = useState(null)
   const [congrats, updateCongrats] = useState(false)
   const [endTime, updateEndTime] = useState(null)
-  console.log(endTime)
 
   return !endGame ? (
     <AppGrid>

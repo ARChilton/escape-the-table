@@ -58,7 +58,6 @@ const updateCombo = (
       }
     }
   } else {
-    console.log(newCombo)
   }
   return toggleWrongAnswer(true)
 }
