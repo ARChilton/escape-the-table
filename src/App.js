@@ -8,6 +8,7 @@ import updateCombo from './updateCombo'
 import KeyList from './Components/KeyList/KeyList'
 import Key from './Components/Key/Key'
 import congratsAudio from './audio/congrats.mp3'
+import failAudio from './audio/fail.mp3'
 
 const AppGrid = styled.div`
   display: grid;
@@ -22,7 +23,7 @@ const AppGrid = styled.div`
 const Grid = styled('div')`
   display: grid;
   align-items: center;
-  grid-gap: 25px;
+  grid-gap: 16px;
 `
 const TopContainer = styled.div`
   display: grid;
@@ -36,7 +37,7 @@ const TopContainer = styled.div`
 
 const TimerContainer = styled('div')`
   color: red;
-  font-size: 80px;
+  font-size: 85px;
   text-align: center;
   font-family: digital;
   width: 200px;
@@ -45,17 +46,25 @@ const TimerContainer = styled('div')`
 
 const Part = styled('div')`
   font-family: monospace;
+  font-size: 1.5rem;
 `
 const Congrats = styled('div')`
   color: ${props => props.theme.color.success};
   font-size: 50px;
   text-align: center;
   margin: auto;
-  min-height: 310px;
+  min-height: 323px;
   align-self: center;
+  display: grid;
+  align-content: center;
+`
+
+const Title = styled('div')`
+  font-weight: bold;
 `
 
 const CongratsAudio = () => <audio src={congratsAudio} autoPlay />
+const FailAudio = () => <audio src={failAudio} autoPlay />
 
 const App = () => {
   const [timerRun, toggleTimerRun] = useState(false)
@@ -66,6 +75,7 @@ const App = () => {
   const [endGame, toggleEndGame] = useState(null)
   const [congrats, updateCongrats] = useState(false)
   const [endTime, updateEndTime] = useState(null)
+  console.log(endTime)
 
   return !endGame ? (
     <AppGrid>
@@ -96,11 +106,14 @@ const App = () => {
         {timerRun && (
           <React.Fragment>
             {!congrats ? (
-              <Answers
-                combo={combination}
-                updateCombo={updateCombination}
-                toggleWrongAnswer={toggleWrongAnswer}
-              />
+              <React.Fragment>
+                <Title style={{ textAlign: 'center' }}>Code</Title>
+                <Answers
+                  combo={combination}
+                  updateCombo={updateCombination}
+                  toggleWrongAnswer={toggleWrongAnswer}
+                />
+              </React.Fragment>
             ) : (
               <React.Fragment>
                 <Congrats>{congrats}</Congrats>
@@ -108,7 +121,7 @@ const App = () => {
               </React.Fragment>
             )}
 
-            <div style={{ textAlign: 'center' }}>Keys</div>
+            <Title style={{ textAlign: 'center' }}>Keys</Title>
             <KeyList>
               {[1, 2, 3, 4, 5, 6].map(keyNumber => (
                 <Key
@@ -144,7 +157,10 @@ const App = () => {
           <CongratsAudio />
         </React.Fragment>
       ) : (
-        <div>Game Over</div>
+        <React.Fragment>
+          <div>Game Over</div>
+          <FailAudio />
+        </React.Fragment>
       )}
       <TimerContainer>
         <Timer seconds={endTime} />

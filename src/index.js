@@ -13,11 +13,8 @@ const Escape = () => (
 )
 
 const rootElement = document.getElementById('root')
-if (rootElement.hasChildNodes()) {
-  ReactDOM.hydrate(<Escape />, rootElement)
-} else {
-  ReactDOM.render(<Escape />, rootElement)
-}
+
+ReactDOM.render(<Escape />, rootElement)
 
 // ReactDOM.render(
 // ,

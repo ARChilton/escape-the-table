@@ -33,6 +33,7 @@ class Timer extends React.PureComponent {
     this.countDown = this.countDown.bind(this)
     this.runTimer = this.runTimer.bind(this)
     this.loseOneMinute = this.loseOneMinute.bind(this)
+    this.setTime = this.setTime.bind(this)
   }
 
   componentDidMount() {
@@ -42,12 +43,15 @@ class Timer extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { timerRun, wrongAnswer } = this.props
+    const { timerRun, wrongAnswer, seconds } = this.props
     if (timerRun !== prevProps.timerRun) {
       this.runTimer(timerRun)
     }
     if (wrongAnswer && wrongAnswer !== prevProps.wrongAnswer) {
       this.loseOneMinute()
+    }
+    if (seconds !== prevProps.seconds) {
+      this.setTime(seconds)
     }
   }
 
@@ -55,6 +59,12 @@ class Timer extends React.PureComponent {
     const { updateEndTime } = this.props
     const { seconds } = this.state
     updateEndTime(seconds)
+    clearInterval(this.timer)
+  }
+
+  setTime(seconds) {
+    const time = Timer.secondsToTime(seconds)
+    this.setState({ time })
   }
 
   runTimer(isStart) {
@@ -71,6 +81,7 @@ class Timer extends React.PureComponent {
   stopTimer() {
     clearInterval(this.timer)
     this.timer = 0
+    console.log('stop')
   }
 
   loseOneMinute() {
