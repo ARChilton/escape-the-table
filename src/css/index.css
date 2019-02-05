@@ -19,9 +19,30 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  background-color: rgba(0, 0, 0, 0.00000015);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+body *::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  -webkit-transition: 0.3s background;
+  transition: 0.3s background;
+  margin-left: -6px;
+}
+
+body *::-webkit-scrollbar-thumb {
+  background: #ced4da;
+}
+
+body *::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+body *:hover::-webkit-scrollbar-thumb {
+  background: #adb5bd;
 }

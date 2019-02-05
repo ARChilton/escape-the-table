@@ -10,7 +10,7 @@ const Container = styled('div')`
   grid-template-columns: repeat(5, 1fr);
   text-align: center;
   justify-items: center;
-  min-height: 310px;
+  min-height: 230px;
 `
 
 const removeKey = (combo, updateCombo, i, toggleWrongAnswer) => {

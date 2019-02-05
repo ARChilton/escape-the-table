@@ -19,11 +19,14 @@ const updateCombo = (
     newCombo[index] = key
   } else {
     if (currentCombo.length === 4) {
+      toggleWrongAnswer(false)
       return changeCombo([key])
     }
     newCombo = [...currentCombo, key]
   }
-  if (newCombo.length < 4) {
+  const checkForNulls = newCombo.indexOf(null)
+
+  if (newCombo.length < 4 || checkForNulls > -1) {
     toggleWrongAnswer(false)
     return changeCombo(newCombo)
   }

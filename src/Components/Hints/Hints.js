@@ -14,7 +14,7 @@ const HintContainer = styled('div')`
   display: flex;
 `
 const Container = styled('div')`
-  overflow: scroll;
+  overflow: auto;
   height: 100%;
   padding: 10px;
   width: 100%;
